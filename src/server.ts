@@ -1,15 +1,19 @@
-import express, { Request, Response } from 'express'
-import bodyParser from 'body-parser'
-import {PORT} from "./config";
+import express from "express";
+import type { Request, Response } from "express";
+import bodyParser from "body-parser";
+import { PORT } from "./config";
+import { product_routes } from "./handlers";
 
-const app: express.Application = express()
+const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.get('/', function (req: Request, res: Response) {
-    res.send('Hello World!')
-})
+product_routes(app);
+
+app.get("/", function (req: Request, res: Response) {
+  res.send("Hello World!");
+});
 
 app.listen(PORT, function () {
-    console.log(`starting app on: ${PORT}`)
-})
+  console.log(`starting app on: ${PORT}`);
+});
