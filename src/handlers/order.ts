@@ -14,9 +14,9 @@ const currentOrderByUserHandler = async (req: Request, res: Response) => {
   res.json(orders);
 };
 
-const product_routes = (app: Application) => {
-  app.get("/orders/:user_id", currentOrderByUserHandler);
+const order_routes = (app: Application) => {
   app.post("/orders", createHandler);
+  app.get("/orders/:user_id", verifyAuthToken, currentOrderByUserHandler);
 };
 
-export default product_routes;
+export default order_routes;
