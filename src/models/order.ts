@@ -28,7 +28,7 @@ export class OrderStore {
     }
   }
 
-  async currentOrderByUser(user_id: number): Promise<OrderProductType[]> {
+  async currentOrderByUser(user_id: number): Promise<OrderType[]> {
     try {
       const connection = await Client.connect();
       const sql = "SELECT * FROM orders WHERE user_id=($1) AND status='open'";

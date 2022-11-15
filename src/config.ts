@@ -10,4 +10,5 @@ export const {
   BCRYPT_PASS,
   SALT_ROUNDS,
   TOKEN,
+  NODE_ENV,
 } = process.env;

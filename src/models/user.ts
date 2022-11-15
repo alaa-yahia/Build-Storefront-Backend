@@ -3,9 +3,9 @@ import { SALT_ROUNDS, BCRYPT_PASS } from "../config";
 import Client from "../database";
 
 export type UserType = {
-  id: number;
+  id?: number;
   firstName: string;
-  lastName: number;
+  lastName: string;
   password: string;
 };
 

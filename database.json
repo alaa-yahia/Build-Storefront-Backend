@@ -1,16 +1,16 @@
 {
-    "dev": {
-      "driver": "pg",
-      "host": "127.0.0.1",
-      "database": "storefront",
-      "user": "postgres",
-      "password": ""
-    },
-    "test": {
-      "driver": "pg",
-      "host": "127.0.0.1",
-      "database": "storefront_test",
-      "user": "test_user",
-      "password": "password_test"
-    }
+  "dev": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "storefront",
+    "user": "postgres",
+    "password": ""
+  },
+  "test": {
+    "driver": "pg",
+    "host": "127.0.0.1",
+    "database": "test_db",
+    "user": "alaa",
+    "password": ""
   }
+}
