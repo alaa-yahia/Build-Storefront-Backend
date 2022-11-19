@@ -8,6 +8,7 @@ import {
 } from "./config";
 
 let client: any;
+
 if (NODE_ENV === "dev") {
   client = new Pool({
     host: POSTGRES_HOST,
@@ -23,4 +24,5 @@ if (NODE_ENV === "test") {
     user: POSTGRES_USER,
   });
 }
+
 export default client;
