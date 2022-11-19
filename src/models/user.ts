@@ -4,8 +4,8 @@ import Client from "../database";
 
 export type UserType = {
   id?: number;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   password: string;
 };
 
@@ -16,7 +16,7 @@ export class UserStore {
       const sql = "SELECT * FROM products";
       const res = await connection.query(sql);
       connection.release();
-      const usersWithoutPass = res.rows.map((user) => {
+      const usersWithoutPass = res.rows.map((user: UserType) => {
         return { ...user, password: "" };
       });
       return usersWithoutPass;
@@ -27,7 +27,7 @@ export class UserStore {
 
   async create(user: UserType): Promise<UserType> {
     try {
-      const { firstName, lastName, password } = user;
+      const { firstname, lastname, password } = user;
       const connection = await Client.connect();
       const sql =
         "INSERT INTO users (firstName, lastName, password) VALUES ($1, $2, $3) RETURNING *";
@@ -35,25 +35,24 @@ export class UserStore {
         password + BCRYPT_PASS,
         genSaltSync(Number(SALT_ROUNDS))
       );
-      const result = await connection.query(sql, [firstName, lastName, hash]);
+      const result = await connection.query(sql, [firstname, lastname, hash]);
       connection.release();
 
       return result.rows[0];
     } catch (error) {
       throw new Error(
-        `an error occured while creating ${user.firstName} user : ${error}`
+        `an error occured while creating ${user.firstname} user : ${error}`
       );
     }
   }
 
   async authenticate(user: UserType): Promise<UserType | null> {
     try {
-      const { firstName, lastName, password } = user;
+      const { firstname, lastname, password } = user;
       const connection = await Client.connect();
-      const sql =
-        "SELECT password FROM users WHERE firstName=($1) AND lastName=($2)";
+      const sql = "SELECT * FROM users WHERE firstName=($1) AND lastName=($2)";
 
-      const result = await connection.query(sql, [firstName, lastName]);
+      const result = await connection.query(sql, [firstname, lastname]);
 
       if (result.rows.length) {
         const user = result.rows[0];
@@ -65,7 +64,7 @@ export class UserStore {
       return null;
     } catch (error) {
       throw new Error(
-        `an error occured while creating ${user.firstName} user : ${error}`
+        `an error occured while creating ${user.firstname} user : ${error}`
       );
     }
   }

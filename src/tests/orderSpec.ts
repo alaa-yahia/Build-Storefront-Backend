@@ -1,5 +1,7 @@
 import { OrderStore, OrderType } from "../models/order";
+import { UserStore, UserType } from "../models/user";
 
+const userStore = new UserStore();
 const store = new OrderStore();
 
 describe("testing for functions definitions", () => {
@@ -12,7 +14,13 @@ describe("testing for functions definitions", () => {
 });
 
 describe("testing for functions results", () => {
-  it("order:tests create func return specified result", async () => {
+  it("order:tests create func return the specified result", async () => {
+    await userStore.create({
+      id: 1,
+      firstname: "Alaa",
+      lastname: "Yahia",
+      password: "axon",
+    });
     const result: OrderType = await store.create({
       id: 1,
       status: "open",

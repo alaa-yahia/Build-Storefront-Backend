@@ -17,36 +17,35 @@ describe("testing for functions definitions", () => {
 });
 
 describe("testing for functions results", () => {
-  it("tests create func return specified result", async () => {
+  it(":tests create func return specified result", async () => {
     const result: UserType = await store.create({
-      id: 1,
-      firstName: "Alaa",
-      lastName: "Yahia",
+      id: 2,
+      firstname: "tree",
+      lastname: "sun",
       password: "axon",
     });
-
-    expect(result).toEqual({
-      id: 1,
-      firstName: "Alaa",
-      lastName: "Yahia",
-      password: hashSync(
-        "axon" + BCRYPT_PASS,
-        genSaltSync(Number(SALT_ROUNDS))
-      ),
-    });
+    expect(result).toEqual(
+      jasmine.objectContaining({
+        id: 2,
+        firstname: "tree",
+        lastname: "sun",
+      })
+    );
   });
 
-  it("tests if authenticate func return correct result", async () => {
+  it(":tests if authenticate func return correct result", async () => {
     const result: UserType | null = await store.authenticate({
-      firstName: "Alaa",
-      lastName: "Yahia",
+      firstname: "tree",
+      lastname: "sun",
       password: "axon",
     });
-    expect(result).toEqual({
-      id: 1,
-      firstName: "Alaa",
-      lastName: "Yahia",
-      password: "axon",
-    });
+
+    expect(result).toEqual(
+      jasmine.objectContaining({
+        id: 2,
+        firstname: "tree",
+        lastname: "sun",
+      })
+    );
   });
 });

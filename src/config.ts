@@ -11,4 +11,5 @@ export const {
   SALT_ROUNDS,
   TOKEN,
   NODE_ENV,
+  POSTGRES_TEST_DB,
 } = process.env;

@@ -15,7 +15,7 @@ const createHandler = async (req: Request, res: Response) => {
 const authenticateHandler = async (req: Request, res: Response) => {
   const user = await store.authenticate(req.body);
   if (!user) res.sendStatus(401);
-  const token = jwt.sign({ user }, TOKEN as Secret);
+  const token = jwt.sign({ user: user?.password }, TOKEN as Secret);
   res.json(token);
 };
 

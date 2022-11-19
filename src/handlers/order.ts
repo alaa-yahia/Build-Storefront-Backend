@@ -15,7 +15,7 @@ const currentOrderByUserHandler = async (req: Request, res: Response) => {
 };
 
 const order_routes = (app: Application) => {
-  app.post("/orders", createHandler);
+  app.post("/orders", verifyAuthToken, createHandler);
   app.get("/orders/:user_id", verifyAuthToken, currentOrderByUserHandler);
 };
 
