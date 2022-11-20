@@ -13,15 +13,28 @@ export class UserStore {
   async index(): Promise<UserType[]> {
     try {
       const connection = await Client.connect();
-      const sql = "SELECT * FROM products";
+      const sql = "SELECT * FROM users";
       const res = await connection.query(sql);
       connection.release();
-      const usersWithoutPass = res.rows.map((user: UserType) => {
-        return { ...user, password: "" };
-      });
-      return usersWithoutPass;
+
+      return res.rows;
     } catch (error) {
-      throw new Error(`an error occured wjile getting users: ${error}`);
+      throw new Error(`an error occured wjile getting uers: ${error}`);
+    }
+  }
+
+  async show(id: number): Promise<UserType> {
+    try {
+      const connection = await Client.connect();
+      const sql = "SELECT * FROM users WHERE id=($1)";
+      const res = await connection.query(sql, [id]);
+      connection.release();
+
+      return res.rows[0];
+    } catch (error) {
+      throw new Error(
+        `an error occured while getting the specified user ${id}: ${error}`
+      );
     }
   }
 
