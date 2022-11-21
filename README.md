@@ -17,10 +17,11 @@ PORT=4000
 POSTGRES_HOST = "localhost"
 POSTGRES_DB ="storefront"
 POSTGRES_TEST_DB= "test"
-POSTGRES_USER ="alaa"
+POSTGRES_USER ="postgres"
 BCRYPT_PASS = "axon"
 SALT_ROUNDS =10
 TOKEN = XXXX
+POSTGRES_PASSWORD = "aaaa"
 
 ### The test script create the test database
 
