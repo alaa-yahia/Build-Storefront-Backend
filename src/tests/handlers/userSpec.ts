@@ -4,7 +4,7 @@ import client from "../../database";
 
 const request = supertest(app);
 
-describe("Checking returned status code from /products endpoint is correct", () => {
+describe("Checking returned status code from /users endpoint is correct", () => {
   it("should return 200 when creating new user", async () => {
     const response = await request
       .post("/users")
