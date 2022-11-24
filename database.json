@@ -3,14 +3,14 @@
     "driver": "pg",
     "host": "127.0.0.1",
     "database": "storefront",
-    "user": "alaa",
+    "user": "postgres",
     "password": ""
   },
   "test": {
     "driver": "pg",
     "host": "127.0.0.1",
     "database": "test",
-    "user": "alaa",
+    "user": "postgres",
     "password": ""
   }
 }

@@ -2,7 +2,19 @@
 
 Udacity 2d project
 
-### To install dependensies
+### Install db-migrate globally
+
+`npm install -g db-migrate`
+
+### Create the dev database
+
+`db-migrate db:create storefront`
+
+### Run migration
+
+`db-migrate up`
+
+### To install project dependensies
 
 `npm i`
 
@@ -10,19 +22,20 @@ Udacity 2d project
 
 `npm run start`
 
+### The test script create the test database before doing the test
+
+### Created test and dev databases are without a password
+
 ### Env variables
 
 NODE_ENV=test
 PORT=4000
+POSTGRES_PORT:5432
 POSTGRES_HOST = "localhost"
 POSTGRES_DB ="storefront"
 POSTGRES_TEST_DB= "test"
 POSTGRES_USER ="postgres"
+POSTGRES_PASSWORD = ""
 BCRYPT_PASS = "axon"
 SALT_ROUNDS =10
 TOKEN = XXXX
-POSTGRES_PASSWORD = "aaaa"
-
-### The test script create the test database
-
-### Created test and dev databases are without a password

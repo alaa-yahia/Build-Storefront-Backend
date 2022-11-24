@@ -1,4 +1,5 @@
-import { ProductStore, ProductType } from "../models/product";
+import client from "../../database";
+import { ProductStore, ProductType } from "../../models/product";
 
 const store = new ProductStore();
 
@@ -23,7 +24,7 @@ describe("testing for functions results", () => {
       category: "drinks",
     });
     expect(result).toEqual({
-      id: 1,
+      id: result.id,
       name: "Tornado",
       price: 300,
       category: "drinks",
@@ -34,7 +35,7 @@ describe("testing for functions results", () => {
     const result: ProductType[] = await store.index();
     expect(result).toEqual([
       {
-        id: 1,
+        id: result[0].id,
         name: "Tornado",
         price: 300,
         category: "drinks",
@@ -43,12 +44,25 @@ describe("testing for functions results", () => {
   });
 
   it("tests if show func return specified product", async () => {
-    const result = await store.show(1);
-    expect(result).toEqual({
+    const createResult = await store.create({
       id: 1,
       name: "Tornado",
       price: 300,
       category: "drinks",
     });
+    const result = await store.show(createResult.id);
+    expect(result).toEqual({
+      id: createResult.id,
+      name: "Tornado",
+      price: 300,
+      category: "drinks",
+    });
+  });
+
+  afterAll(async () => {
+    const connection = await client.connect();
+    const sql = "DELETE FROM products;";
+    await connection.query(sql);
+    await connection.release();
   });
 });

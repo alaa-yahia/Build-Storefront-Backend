@@ -27,7 +27,6 @@ export class ProductStore {
       const sql = "SELECT * FROM products WHERE id=($1)";
       const res = await connection.query(sql, [id]);
       connection.release();
-
       return res.rows[0];
     } catch (error) {
       throw new Error(

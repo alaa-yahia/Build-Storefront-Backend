@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 import { PORT } from "./config";
 import { product_routes, user_routes, order_routes } from "./handlers";
 
-const app = express();
+export const app = express();
 
 app.use(bodyParser.json());
 

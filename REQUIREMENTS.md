@@ -29,22 +29,27 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Product
 
-- id
-- name
-- price
-- [OPTIONAL] category
+- id [integer][serial primary key]
+- name [character varying(100)]
+- price [integer]
+- category [character varying(100)]
 
 #### User
 
-- id
-- firstName
-- lastName
-- password
+- id [integer] [SERIAL PRIMARY KEY]
+- firstName [character varying(100)]
+- lastName [character varying(100)]
+- password [character varying]
 
 #### Orders
 
-- id
-- id of each product in the order
-- quantity of each product in the order
-- user_id
-- status of order (active or complete)
+- id [integer] [SERIAL PRIMARY KEY]
+- user_id [bigint]
+- status of order (open or complete) [character varying(100)]
+
+#### orders_products
+
+- id [integer] [SERIAL PRIMARY KEY]
+- quantity [integer]
+- order_id [bigint]
+- product_id [bigint]

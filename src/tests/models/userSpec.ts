@@ -1,6 +1,5 @@
-import { UserStore, UserType } from "../models/user";
-import { hashSync, compareSync, genSaltSync } from "bcrypt";
-import { SALT_ROUNDS, BCRYPT_PASS } from "../config";
+import client from "../../database";
+import { UserStore, UserType } from "../../models/user";
 
 const store = new UserStore();
 
@@ -26,7 +25,7 @@ describe("testing for functions results", () => {
     });
     expect(result).toEqual(
       jasmine.objectContaining({
-        id: 2,
+        id: result.id,
         firstname: "tree",
         lastname: "sun",
       })
@@ -42,10 +41,15 @@ describe("testing for functions results", () => {
 
     expect(result).toEqual(
       jasmine.objectContaining({
-        id: 2,
         firstname: "tree",
         lastname: "sun",
       })
     );
+  });
+
+  afterAll(async () => {
+    const connection = await client.connect();
+    await connection.query("DELETE FROM users;");
+    connection.release();
   });
 });

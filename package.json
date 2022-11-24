@@ -1,7 +1,7 @@
 {
   "name": "storefront_backend",
   "version": "0.1.0",
-  "description": "",
+  "description": "A store front api",
   "main": "server.ts",
   "scripts": {
     "start": "nodemon src/server.ts",
