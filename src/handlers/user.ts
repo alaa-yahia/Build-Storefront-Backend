@@ -11,7 +11,7 @@ const indexHandler = async (req: Request, res: Response) => {
     const users = await store.index();
     res.json(users);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 
@@ -20,7 +20,7 @@ const showHandler = async (req: Request, res: Response) => {
     const user = await store.show(parseInt(req.params.id));
     res.json(user);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 
@@ -30,7 +30,7 @@ const createHandler = async (req: Request, res: Response) => {
     const token = jwt.sign({ user }, TOKEN as Secret);
     res.json(token);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 
@@ -41,7 +41,7 @@ const authenticateHandler = async (req: Request, res: Response) => {
     const token = jwt.sign({ user: user?.password }, TOKEN as Secret);
     res.json(token);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 

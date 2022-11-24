@@ -29,8 +29,8 @@ Udacity 2d project
 ### Env variables
 
 NODE_ENV=test
-PORT=4000
-POSTGRES_PORT:5432
+PORT=4000 //This is the port the server is running on
+POSTGRES_PORT:5432 //this is the port the database is running on
 POSTGRES_HOST = "localhost"
 POSTGRES_DB ="storefront"
 POSTGRES_TEST_DB= "test"

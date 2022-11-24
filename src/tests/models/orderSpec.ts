@@ -1,6 +1,6 @@
 import client from "../../database";
 import { OrderStore, OrderType } from "../../models/order";
-import { UserStore } from "../../models/user";
+import { UserStore, UserType } from "../../models/user";
 
 const userStore = new UserStore();
 const store = new OrderStore();
@@ -15,13 +15,17 @@ describe("testing for functions definitions", () => {
 });
 
 describe("testing for functions results", () => {
-  it("order:tests create func return the specified result", async () => {
-    const user = await userStore.create({
+  let user = {} as UserType;
+  beforeAll(async () => {
+    user = await userStore.create({
       id: 1,
       firstname: "Alaa",
       lastname: "Yahia",
       password: "axon",
     });
+  });
+
+  it("order:tests create func return the specified result", async () => {
     const result: OrderType = await store.create({
       id: 1,
       status: "open",
@@ -35,12 +39,14 @@ describe("testing for functions results", () => {
   });
 
   it("order: tests if index func return correct result", async () => {
-    const result: OrderType[] = await store.currentOrderByUser(3);
+    const result: OrderType[] = await store.currentOrderByUser(
+      user.id as number
+    );
     expect(result).toEqual([
       {
-        id: 2,
+        id: 3,
         status: "open",
-        user_id: "3",
+        user_id: String(user.id) as any,
       },
     ]);
   });

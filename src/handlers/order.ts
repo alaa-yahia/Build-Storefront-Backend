@@ -9,7 +9,7 @@ const createHandler = async (req: Request, res: Response) => {
     const order = await store.create(req.body);
     res.json(order);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 
@@ -18,7 +18,7 @@ const currentOrderByUserHandler = async (req: Request, res: Response) => {
     const orders = await store.currentOrderByUser(parseInt(req.params.user_id));
     res.json(orders);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 

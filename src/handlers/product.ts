@@ -9,7 +9,7 @@ const indexHandler = async (req: Request, res: Response) => {
     const products = await store.index();
     res.json(products);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 
@@ -18,7 +18,7 @@ const showHandler = async (req: Request, res: Response) => {
     const product = await store.show(parseInt(req.params.id));
     res.json(product);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 
@@ -30,7 +30,7 @@ const createHandler = async (req: Request, res: Response) => {
     }
     res.json(product);
   } catch (err) {
-    res.sendStatus(404).send(err);
+    res.sendStatus(500).send(err);
   }
 };
 

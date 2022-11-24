@@ -5,12 +5,6 @@ export type OrderType = {
   status: string;
   user_id: string;
 };
-export type OrderProductType = {
-  id: number;
-  quantity: number;
-  order_id: string;
-  product_id: string;
-};
 
 export class OrderStore {
   async create(order: OrderType): Promise<OrderType> {

@@ -11,8 +11,6 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Index 'products' [GET]
 - Show 'products/:id' [GET]
 - Create [token required] 'products' [POST]
-- [OPTIONAL] Top 5 most popular products
-- [OPTIONAL] Products by category (args: product category)
 
 #### Users
 
@@ -23,7 +21,10 @@ These are the notes from a meeting with the frontend developer that describe wha
 #### Orders
 
 - Current Order by user (args: user id)[token required] 'orders/:id' [GET]
-- [OPTIONAL] Completed Orders by user (args: user id)[token required]
+
+#### orders_products
+
+- Orders_Products (args: id) [token required] '/orders/:id/products' [POST]
 
 ## Data Shapes
 
