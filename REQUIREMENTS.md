@@ -30,12 +30,25 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Product
 
+```
+CREATE TABLE IF NOT EXISTS products (id SERIAL PRIMARY KEY, name VARCHAR(100), price integer, category VARCHAR(100));
+```
+
 - id [integer][serial primary key]
 - name [character varying(100)]
 - price [integer]
 - category [character varying(100)]
 
 #### User
+
+```
+CREATE TABLE IF NOT EXISTS users (
+    id SERIAL PRIMARY KEY,
+    firstName VARCHAR(100),
+    lastName VARCHAR(100),
+    password VARCHAR
+);
+```
 
 - id [integer] [SERIAL PRIMARY KEY]
 - firstName [character varying(100)]
@@ -44,11 +57,28 @@ These are the notes from a meeting with the frontend developer that describe wha
 
 #### Orders
 
+```
+CREATE TABLE IF NOT EXISTS orders(
+    id SERIAL PRIMARY KEY,
+    status VARCHAR(100),
+    user_id bigint REFERENCES users(id)
+);
+```
+
 - id [integer] [SERIAL PRIMARY KEY]
 - user_id [bigint]
 - status of order (open or complete) [character varying(100)]
 
 #### orders_products
+
+```
+CREATE TABLE IF NOT EXISTS orders_products(
+    id SERIAL PRIMARY KEY,
+    quantity integer,
+    product_id bigint REFERENCES products(id),
+    order_id bigint REFERENCES orders(id)
+);
+```
 
 - id [integer] [SERIAL PRIMARY KEY]
 - quantity [integer]
