@@ -35,7 +35,7 @@ const create = async (req: Request, res: Response) => {
 const orders_products_routes = (app: express.Application) => {
   app.get("/orders/products", verifyAuthToken, index);
   app.get("/orders/:order_id/products", verifyAuthToken, show);
-  app.post("/ordersp/products/:order_id", verifyAuthToken, create);
+  app.post("/orders/:order_id/products", verifyAuthToken, create);
 };
 
 export default orders_products_routes;
