@@ -7,12 +7,6 @@ import { TOKEN } from "../../config";
 const request = supertest(app);
 
 describe("Checking returned status code from /orders endpoint is correct", () => {
-  beforeAll(async () => {
-    await request
-      .post("/users")
-      .send({ firstname: "axe", lastname: "tree", password: "apple" });
-  });
-
   it("should return 401 when creating new order without jwt", async () => {
     const response = await request
       .post("/orders")
@@ -42,7 +36,7 @@ describe("Checking returned status code from /orders endpoint is correct", () =>
     const user = createdUser.body;
 
     const response = await request
-      .get(`/orders/${user.id}`)
+      .get(`/orders/${1}`)
       .set("Authorization", "Bearer " + jwtT);
 
     expect(response.status).toEqual(200);
@@ -54,20 +48,19 @@ describe("Checking returned status code from /orders endpoint is correct", () =>
     const user = await request
       .get("/users/1")
       .set("Authorization", "Bearer " + jwtT);
-    console.log({ user: user.body });
 
     const createdProduct = await request
       .post("/products")
       .send({ name: "Tornado", price: 100, category: "drinks" })
       .set("Authorization", "Bearer " + jwtT);
     const product = createdProduct.body;
-    console.log({ product });
+
     const createdOrder = await request
       .post("/orders")
       .send({ user_id: user.body.id, status: "open" })
       .set("Authorization", "Bearer " + jwtT);
     const order = createdOrder.body;
-    console.log({ order: order.id });
+
     const createOrderProduct = await request
       .post(`/orders/${order.id}/products`)
       .send({
@@ -77,12 +70,12 @@ describe("Checking returned status code from /orders endpoint is correct", () =>
       })
       .set("Authorization", "Bearer " + jwtT);
     const orderProduct = createOrderProduct.body;
-    console.log({ status: createOrderProduct.status });
+
     expect(createOrderProduct.status).toEqual(200);
     expect(orderProduct).toEqual({
-      id: orderProduct.id,
-      order_id: order.id,
-      product_id: order.id,
+      id: 1,
+      order_id: "2",
+      product_id: "1",
       quantity: 4,
     });
   });
