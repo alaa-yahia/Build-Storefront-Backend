@@ -7,6 +7,13 @@ import { TOKEN } from "../../config";
 const request = supertest(app);
 
 describe("Checking returned status code from /orders endpoint is correct", () => {
+  let user: unknown;
+  beforeAll(async () => {
+    user = await request
+      .post("/users")
+      .send({ firstName: "axe", lastName: "tree", password: "apple" });
+  });
+
   it("should return 401 when creating new order without jwt", async () => {
     const response = await request
       .post("/orders")
@@ -15,25 +22,21 @@ describe("Checking returned status code from /orders endpoint is correct", () =>
   });
 
   it("should return 200 when creating new order with jwt", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
+    const jwtT = jwt.sign({ user }, TOKEN as string);
 
-    const user = await request
+    const getUser = await request
       .get("/users/1")
       .set("Authorization", "Bearer " + jwtT);
 
     const response = await request
       .post("/orders")
-      .send({ user_id: user.body.id, status: "open" })
+      .send({ user_id: getUser.body.id, status: "open" })
       .set("Authorization", "Bearer " + jwtT);
     expect(response.status).toEqual(200);
   });
 
   it("should return 200 when getting user's open orders", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
-    const createdUser = await request
-      .post("/users")
-      .send({ firstname: "axe", lastname: "tree", password: "apple" });
-    const user = createdUser.body;
+    const jwtT = jwt.sign({ user }, TOKEN as string);
 
     const response = await request
       .get(`/orders/${1}`)
@@ -43,9 +46,9 @@ describe("Checking returned status code from /orders endpoint is correct", () =>
   });
 
   it("should add products for an order orders/:id/products]", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
+    const jwtT = jwt.sign({ user }, TOKEN as string);
 
-    const user = await request
+    const getUser = await request
       .get("/users/1")
       .set("Authorization", "Bearer " + jwtT);
 
@@ -57,7 +60,7 @@ describe("Checking returned status code from /orders endpoint is correct", () =>
 
     const createdOrder = await request
       .post("/orders")
-      .send({ user_id: user.body.id, status: "open" })
+      .send({ user_id: getUser.body.id, status: "open" })
       .set("Authorization", "Bearer " + jwtT);
     const order = createdOrder.body;
 

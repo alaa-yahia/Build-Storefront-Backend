@@ -7,6 +7,12 @@ import { TOKEN } from "../../config";
 const request = supertest(app);
 
 describe("Checking returned status code from /products endpoint is correct", () => {
+  let user: unknown;
+  beforeAll(async () => {
+    user = await request
+      .post("/users")
+      .send({ firstName: "axe", lastName: "tree", password: "apple" });
+  });
   it("should return 200 when getting all the products", async () => {
     const response = await request.get(`/products`);
     expect(response.status).toBe(200);
@@ -18,7 +24,7 @@ describe("Checking returned status code from /products endpoint is correct", () 
   });
 
   it("should return 200 when creating new product with jwt", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
+    const jwtT = jwt.sign({ user }, TOKEN as string);
 
     const response = await request
       .post("/products")
@@ -35,7 +41,7 @@ describe("Checking returned status code from /products endpoint is correct", () 
   });
 
   it("should return 200 when querying a product", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
+    const jwtT = jwt.sign({ user }, TOKEN as string);
 
     const createdProduct = await request
       .post("/products")

@@ -7,6 +7,12 @@ import { TOKEN } from "../../config";
 const request = supertest(app);
 
 describe("Checking returned status code from /users endpoint is correct", () => {
+  let user: unknown;
+  beforeAll(async () => {
+    user = await request
+      .post("/users")
+      .send({ firstName: "axe", lastName: "tree", password: "apple" });
+  });
   it("should return 200 when creating new user", async () => {
     const response = await request
       .post("/users")
@@ -15,8 +21,7 @@ describe("Checking returned status code from /users endpoint is correct", () => 
   });
 
   it("should return 200 when getting all the users", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
-
+    const jwtT = jwt.sign({ user }, TOKEN as string);
     const response = await request
       .get(`/users`)
       .set("Authorization", "Bearer " + jwtT);
@@ -24,8 +29,7 @@ describe("Checking returned status code from /users endpoint is correct", () => 
   });
 
   it("should return 200 when querying a user", async () => {
-    const jwtT = jwt.sign({ id: 1 }, TOKEN as string);
-
+    const jwtT = jwt.sign({ user }, TOKEN as string);
     const response = await request
       .get("/users/1")
       .set("Authorization", "Bearer " + jwtT);
